@@ -21,11 +21,8 @@
         type (keyword first)]
     (update m type conj (item/create type remaining))))
 
-(defn fill-model [lines]
-  (reduce add-item model lines))
-
 (defn parse [filename]
   (->>
     (lines-with-data filename)
     (map #(str/split % #"\s+"))
-    (fill-model)))
+    (reduce add-item model)))
