@@ -1,7 +1,7 @@
 (ns parser-obj.item
   (:require [clojure.string :as str]))
 
-(defn str->int [str]
+(defn- str->int [str]
   (if (str/blank? str)
     nil
     (Integer/parseInt str)))
@@ -25,13 +25,10 @@
 
 (defn- f-element [item]
   (let [[v vt vn] (str/split item #"/")]
-    (println "!" item)
-    (println "!!" v "-" vt "-" vn " = " (str->int v))
     (f (str->int v) (str->int vt) (str->int vn))))
 
 (defn- f-item [arr]
   (let [[first second third] arr]
-    (println first "-" second "-" third)
     [(f-element first)(f-element second)(f-element third)]))
 
 (defn create [type arr]
