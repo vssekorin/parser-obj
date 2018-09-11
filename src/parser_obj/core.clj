@@ -3,7 +3,7 @@
             [clojure.java.io :as io]
             [parser-obj.item :as item]))
 
-(def model
+(def ^:private model
   {:v '[]
    :f '[]})
 
@@ -19,7 +19,8 @@
 (defn- add-item [m data]
   (let [[first & remaining] data
         type (keyword first)]
-    (update m type conj (item/create type remaining))))
+    (if (or (= type :v) (= type :f))                        ; now only v and f
+      (update m type conj (item/create type remaining)))))
 
 (defn parse [filename]
   (->>
