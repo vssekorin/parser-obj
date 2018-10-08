@@ -29,5 +29,5 @@
     :f  (parse-f arr)
     :v  (to-map :x :y  :z  (double-item-3 arr))
     :vt (to-map :u :v  :w  (double-item-3 arr))
-    :vn (to-map :x :y  :z  (double-item-3 arr))3
+    :vn (to-map :x :y  :z  (double-item-3 arr))
     :vp (to-map :u :v  :w  (double-item-3 arr))))
