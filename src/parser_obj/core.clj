@@ -12,9 +12,8 @@
 (defn- lines-with-data [filename]
   (filter line-has-data? (line-seq (io/reader filename))))
 
-(defn- add-item [m data]
-  (let [[first & remaining] data
-        type (keyword first)]
+(defn- add-item [m [first & remaining]]
+  (let [type (keyword first)]
     (update m type conj (item/create type remaining))))
 
 (defn parse [filename]

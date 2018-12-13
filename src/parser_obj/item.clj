@@ -1,10 +1,8 @@
 (ns parser-obj.item
   (:require [clojure.string :as str]))
 
-(defn- to-map [keys arr]
-  (let [[k1 k2 k3] keys
-        [first second third] arr]
-    {k1 first k2 second k3 third}))
+(defn- to-map [[k1 k2 k3] [first second third]]
+    {k1 first k2 second k3 third})
 
 (defn- str->int [str]
   (if (str/blank? str) nil (Integer/parseInt str)))
