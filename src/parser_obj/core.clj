@@ -4,22 +4,21 @@
             [parser-obj.item :as item]))
 
 (def ^:private model
-  {:v  '[]
-   :f  '[]
-   :vt '[]
-   :vn '[]
-   :vp '[]})
+  {:v  '[] :f  '[] :vt '[] :vn '[] :vp '[]})
 
 (defn- file-lines [filename]
   (line-seq (io/reader filename)))
 
+(defn- line-has-data? [line]
+  (not (or (str/blank? line)
+           (str/starts-with? line "#")
+           (str/starts-with? line "g")
+           (str/starts-with? line "s"))))
+
 (defn- lines-with-data [filename]
   (->>
     (file-lines filename)
-    (filter not-empty)
-    (filter #(not (str/starts-with? % "#")))
-    (filter #(not (str/starts-with? % "g")))
-    (filter #(not (str/starts-with? % "s")))))
+    (filter line-has-data?)))
 
 (defn- add-item [m data]
   (let [[first & remaining] data
