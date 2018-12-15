@@ -1,20 +1,38 @@
 (ns parser-obj.core
   (:require [clojure.string :as str]
-            [clojure.java.io :as io]
-            [parser-obj.item :as item]))
+            [clojure.java.io :as io]))
+
+(defn- to-map [[k1 k2 k3] [first second third]]
+  {k1 first k2 second k3 third})
+
+(defn- str->int [str]
+  (if (str/blank? str) nil (Integer/parseInt str)))
+
+(defn- str->double [str] (Double/parseDouble str))
+
+(defn- f-element [item]
+  (zipmap [:v :vt :vn] (map str->int (str/split item #"/"))))
+
+(defn- vertex-data [keys arr]
+  (to-map keys (map str->double arr)))
+
+(defn- create [type arr]
+  (case type
+    :f  (map f-element arr)
+    :v  (vertex-data [:x :y :z] arr)
+    :vt (vertex-data [:u :v :w] arr)
+    :vn (vertex-data [:x :y :z] arr)
+    :vp (vertex-data [:u :v :w] arr)))
 
 (defn- line-has-data? [line]
-  (not (or (str/blank? line)
-           (str/starts-with? line "#")
-           (str/starts-with? line "g")
-           (str/starts-with? line "s"))))
+  (not (or (str/blank? line) (str/starts-with? line "#"))))
 
 (defn- lines-with-data [filename]
   (filter line-has-data? (line-seq (io/reader filename))))
 
 (defn- add-item [m [first & remaining]]
   (let [type (keyword first)]
-    (update m type conj (item/create type remaining))))
+    (update m type conj (create type remaining))))
 
 (defn parse [filename]
   (->>
