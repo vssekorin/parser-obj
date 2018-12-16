@@ -1,5 +1,7 @@
 # parser-obj
 
+[![Clojars Project](https://img.shields.io/clojars/v/com.vssekorin/parser-obj.svg)](https://clojars.org/com.vssekorin/parser-obj)
+
 Just one function: `parse`.
 
 `(parse "model.obj")`
