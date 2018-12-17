@@ -1,4 +1,4 @@
-(defproject com.vssekorin/parser-obj "0.1"
+(defproject com.vssekorin/parser-obj "0.2"
   :description "Wavefront 3D object file (.obj) parser"
   :url "https://github.com/VsSekorin/parser-obj"
   :license {:name "The MIT License"
