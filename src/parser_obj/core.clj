@@ -2,9 +2,6 @@
   (:require [clojure.string :as str]
             [clojure.java.io :as io]))
 
-(defn- to-map [[k1 k2 k3] [first second third]]
-  {k1 first k2 second k3 third})
-
 (defn- str->int [str]
   (if (str/blank? str) nil (Integer/parseInt str)))
 
@@ -14,7 +11,7 @@
   (zipmap [:v :vt :vn] (map str->int (str/split item #"/"))))
 
 (defn- vertex-data [keys arr]
-  (to-map keys (map str->double arr)))
+  (zipmap keys (map str->double arr)))
 
 (defn- create [type arr]
   (case type
@@ -38,4 +35,4 @@
   (->>
     (lines-with-data filename)
     (map #(str/split % #"\s+"))
-    (reduce add-item {:v  '[] :f  '[] :vt '[] :vn '[] :vp '[]})))
+    (reduce add-item {:v '[] :f '[] :vt '[] :vn '[] :vp '[]})))

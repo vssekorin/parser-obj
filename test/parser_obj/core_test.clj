@@ -2,11 +2,6 @@
   (:require [clojure.test :refer :all]
             [parser-obj.core :refer :all]))
 
-(deftest to-map-test
-  (testing "to map"
-    (let [fun #'parser-obj.core/to-map]
-      (is (= {:a 1 :b 2 :c 3} (fun [:a :b :c] [1 2 3]))))))
-
 (deftest str->double-test
   (let [fun #'parser-obj.core/str->double]
     (is (= Double (type (fun "0"))))
